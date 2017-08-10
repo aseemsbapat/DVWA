@@ -17,200 +17,194 @@
 -->
 <mbeans-descriptors>
 
-  <!-- This MBean contains Connector attributes and some common attributes of
-       associated ProtocolHandler instances. Common attributes extracted out
-       from all ProtocolHandler implementations are denoted by a comment
-       'common' above their description. Each attribute particular to given
-       ProtocolHandler implementation can be found in relevant ProtocolHandler
-       MBean. -->
-  <mbean         name="CoyoteConnector"
-            className="org.apache.catalina.mbeans.ConnectorMBean"
-          description="Implementation of a Coyote connector"
-               domain="Catalina"
-                group="Connector"
-                 type="org.apache.catalina.connector.Connector">
-
-    <!-- Common -->
-    <attribute   name="acceptCount"
-          description="The accept count for this Connector"
-                 type="int"/>
-
-    <!-- Common -->
-    <attribute   name="address"
-          description="The IP address on which to bind"
-                 type="java.lang.String"/>
-
-    <attribute   name="allowTrace"
-          description="Allow disabling TRACE method"
-                 type="boolean"/>
-
-    <attribute   name="className"
-          description="Fully qualified class name of the managed object"
-                 type="java.lang.String"
-            writeable="false"/>
-
-    <!-- Common -->
-    <attribute   name="connectionLinger"
-          description="Linger value on the incoming connection"
-                 type="int"/>
-
-    <!-- Common -->
-    <attribute   name="connectionTimeout"
-          description="Timeout value on the incoming connection"
-                 type="int"/>
-
-    <attribute   name="enableLookups"
-          description="The 'enable DNS lookups' flag for this Connector"
-                 type="boolean"/>
-
-    <attribute   name="executorName"
-          description="The name of the executor - if any - associated with this Connector"
-                 type="java.lang.String"
-            writeable="false"/>
-
-    <!-- Common -->
-    <attribute   name="keepAliveTimeout"
-          description="The number of seconds Tomcat will wait for a subsequent request before closing the connection"
-                 type="int"/>
-
-    <attribute   name="localPort"
-          description="The port number on which this connector is listening to requests. If the special value for port of zero is used then this method will report the actual port bound."
-                type="int"/>
-
-    <attribute   name="maxHeaderCount"
-          description="The maximum number of headers that are allowed by the container. 100 by default. A value of less than 0 means no limit."
-                 type="int"/>
-
-    <attribute   name="maxKeepAliveRequests"
-          description="Maximum number of Keep-Alive requests to honor per connection"
-                 type="int"/>
-
-    <attribute   name="maxParameterCount"
-          description="The maximum number of parameters (GET plus POST) which will be automatically parsed by the container. 10000 by default. A value of less than 0 means no limit."
-                 type="int"/>
-
-    <attribute   name="maxPostSize"
-          description="Maximum size in bytes of a POST which will be handled by the servlet API provided features"
-                 type="int"/>
-
-    <attribute   name="maxSavePostSize"
-          description="Maximum size of a POST which will be saved by the container during authentication"
-                 type="int"/>
-
-    <attribute   name="maxSwallowSize"
-          description="The maximum number of request body bytes to be swallowed by Tomcat for an aborted upload"
-                 type="int"/>
-
-    <!-- Common -->
-    <attribute   name="maxThreads"
-          description="The maximum number of request processing threads to be created"
-                 type="int"/>
-
-    <attribute   name="minSpareThreads"
-          description="The number of request processing threads that will be created"
-                 type="int"/>
-
-    <!-- Common -->
-    <attribute   name="packetSize"
-          description="The ajp packet size."
-                 type="int"/>
-
-    <attribute   name="port"
-          description="The port number on which this connector is configured to listen for requests. The special value of 0 means select a random free port when the socket is bound."
-                type="int"/>
-
-    <!-- Common -->
-    <attribute   name="processorCache"
-          description="The processor cache size."
-                 type="int"/>
-
-    <attribute   name="protocol"
-          description="Coyote protocol handler in use"
-                 type="java.lang.String"/>
-
-    <attribute   name="protocolHandlerClassName"
-          description="Coyote Protocol handler class name"
-                 type="java.lang.String"
-            writeable="false"/>
-
-    <attribute   name="proxyName"
-          description="Ther Server name to which we should pretend requests to this Connector"
-                 type="java.lang.String"/>
-
-    <attribute   name="proxyPort"
-          description="Ther Server port to which we should pretend requests to this Connector"
-                 type="int"/>
-
-    <attribute   name="redirectPort"
-          description="The redirect port for non-SSL to SSL redirects"
-                 type="int"/>
-
-    <attribute   name="scheme"
-          description="Protocol name for this Connector (http, https)"
-                 type="java.lang.String"/>
-
-    <attribute   name="secret"
-          description="Authentication secret (I guess ... not in Javadocs)"
-            readable = "false"
-                 type="java.lang.String"/>
-
-    <attribute   name="secure"
-          description="Is this a secure (SSL) Connector?"
-                 type="boolean"/>
-
-    <attribute   name="sslProtocols"
-          description="Comma-separated list of SSL protocol variants to be enabled"
-                 type="java.lang.String"/>
-
-    <attribute   name="stateName"
-          description="The name of the LifecycleState that this component is currently in"
-                 type="java.lang.String"
-                 writeable="false"/>
-
-    <!-- Common -->
-    <attribute   name="tcpNoDelay"
-          description="Should we use TCP no delay?"
-                 type="boolean"/>
-
-    <!-- Common -->
-    <attribute    name="threadPriority"
-           description="The thread priority for processors"
-                  type="int"/>
-
-    <attribute   name="URIEncoding"
-          description="Character encoding used to decode the URI"
-                 type="java.lang.String"/>
-
-    <attribute   name="useBodyEncodingForURI"
-          description="Should the body encoding be used for URI query parameters"
-                 type="boolean"/>
-
-    <attribute   name="useIPVHosts"
-          description="Should IP-based virtual hosting be used? "
-                 type="boolean"/>
-
-    <attribute    name="xpoweredBy"
-           description="Is generation of X-Powered-By response header enabled/disabled?"
-                  type="boolean"/>
-
-    <operation name="start" description="Start" impact="ACTION" returnType="void" />
-    <operation name="stop" description="Stop" impact="ACTION" returnType="void" />
-    <operation name="pause" description="Start" impact="ACTION" returnType="void" />
-    <operation name="resume" description="Stop" impact="ACTION" returnType="void" />
-    <operation name="init" description="Init" impact="ACTION" returnType="void" />
-    <operation name="destroy" description="Destroy" impact="ACTION" returnType="void" />
-
-  </mbean>
-
-  <mbean   name="Mapper"
-    description="Maps requests received by the associated connector to Hosts, Contexts and Wrappers"
+  <mbean name="ContextEnvironment"
+         className="org.apache.catalina.mbeans.ContextEnvironmentMBean"
+         description="Representation of an application environment entry"
          domain="Catalina"
-          group="Mapper"
-           type="org.apache.catalina.connector.MapperListener">
-
-    <attribute name="connectorName"
-        description="Name of the associated connector"
+         group="Resources"
+         type="org.apache.catalina.deploy.ContextEnvironment">
+    
+    <attribute name="className"
+               description="Fully qualified class name of the managed object"
                type="java.lang.String"
-          writeable="false"/>
+               writeable="false"/>
+      
+    <attribute name="description"
+               description="The description of this environment entry"
+               type="java.lang.String"/>
+
+    <attribute name="name"
+               description="The name of this environment entry"
+               type="java.lang.String"/>
+      
+    <attribute name="override"
+               description="Does this environment entry allow overrides by the
+               application deployment descriptor"
+               type="boolean"/>
+
+    <attribute name="type"
+               description="The type of this environment entry"
+               type="java.lang.String"/>
+
+    <attribute name="value"
+               description="The value of this environment entry"
+               type="java.lang.String"/>
   </mbean>
+
+
+  <mbean         name="ContextResource"
+         className="org.apache.catalina.mbeans.ContextResourceMBean"
+         description="Representation of a resource reference for a web application"
+         domain="Catalina"
+         group="Resources"
+         type="org.apache.catalina.deploy.ContextResource">
+    
+    <attribute   name="auth"
+               description="The authorization requirement for this resource"
+               type="java.lang.String"/>
+      
+    <attribute   name="description"
+               description="The description of this resource"
+               type="java.lang.String"/>
+      
+    <attribute   name="name"
+               description="The name of this resource"
+               type="java.lang.String"/>
+      
+    <attribute   name="scope"
+               description="The sharing scope of this resource factory"
+               type="java.lang.String"/>
+      
+    <attribute   name="type"
+               description="The type of this environment entry"
+               type="java.lang.String"/>
+  </mbean>
+  
+  
+   <mbean         name="ContextResourceLink"
+          className="org.apache.catalina.mbeans.ContextResourceLinkMBean"
+          description="Representation of a resource link for a web application"
+          domain="Catalina"
+          group="Resources"
+          type="org.apache.catalina.deploy.ContextResourceLink">
+    
+    <attribute   name="global"
+               description="The global name of this resource"
+               type="java.lang.String"/>
+      
+    <attribute   name="name"
+               description="The name of this resource"
+               type="java.lang.String"/>
+               
+    <attribute   name="description"
+               description="The description of this resource"
+               type="java.lang.String"/>
+      
+    <attribute   name="type"
+               description="The type of this resource"
+               type="java.lang.String"/>
+      
+  </mbean>
+  
+  <mbean         name="NamingResources"
+            className="org.apache.catalina.mbeans.NamingResourcesMBean"
+          description="Holds and manages the naming resources defined in the
+                       J2EE Enterprise Naming Context and their associated 
+                       JNDI context"
+               domain="Catalina"
+                group="Resources"
+                 type="org.apache.catalina.deploy.NamingResources">
+                 
+    <attribute   name="container"
+          description="The container with which the naming resources are associated."
+                 type="java.lang.Object"
+            writeable="false"/>
+
+    <attribute   name="environments"
+          description="MBean Names of the set of defined environment entries
+                       for this web application"
+                 type="[Ljava.lang.String;"
+            writeable="false"/>
+
+    <attribute   name="resources"
+          description="MBean Names of all the defined resource references
+                       for this application."
+                 type="[Ljava.lang.String;"
+            writeable="false"/>
+
+    <attribute   name="resourceLinks"
+          description="MBean Names of all the defined resource link references
+                       for this application."
+                 type="[Ljava.lang.String;"
+            writeable="false"/>
+
+    <operation   name="addEnvironment"
+          description="Add an environment entry for this web application"
+               impact="ACTION"
+           returnType="void">
+      <parameter name="envName"
+          description="New environment entry name"
+                 type="java.lang.String"/>
+      <parameter name="type"
+          description="New environment entry type"
+                 type="java.lang.String"/>
+      <parameter name="value"
+          description="New environment entry value"
+                 type="java.lang.String"/>
+    </operation>
+
+    <operation   name="addResource"
+          description="Add a resource reference for this web application"
+               impact="ACTION"
+           returnType="void">
+      <parameter name="resourceName"
+          description="New resource reference name"
+                 type="java.lang.String"/>
+      <parameter name="type"
+          description="New resource reference type"
+                 type="java.lang.String"/>
+    </operation>
+
+    <operation   name="addResourceLink"
+          description="Add a resource link reference for this web application"
+               impact="ACTION"
+           returnType="void">
+      <parameter name="resourceLinkName"
+          description="New resource reference name"
+                 type="java.lang.String"/>
+      <parameter name="type"
+          description="New resource reference type"
+                 type="java.lang.String"/>
+    </operation>
+
+    <operation   name="removeEnvironment"
+          description="Remove any environment entry with the specified name"
+               impact="ACTION"
+           returnType="void">
+      <parameter name="envName"
+          description="Name of the environment entry to remove"
+                 type="java.lang.String"/>
+    </operation>
+
+    <operation   name="removeResource"
+          description="Remove any resource reference with the specified name"
+               impact="ACTION"
+           returnType="void">
+      <parameter name="resourceName"
+          description="Name of the resource reference to remove"
+                 type="java.lang.String"/>
+    </operation>
+
+    <operation   name="removeResourceLink"
+          description="Remove any resource link reference with the specified name"
+               impact="ACTION"
+           returnType="void">
+      <parameter name="resourceLinkName"
+          description="Name of the resource reference to remove"
+                 type="java.lang.String"/>
+    </operation>
+
+  </mbean>
+
+
 </mbeans-descriptors>

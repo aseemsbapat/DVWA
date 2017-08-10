@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -15,196 +15,162 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+<!DOCTYPE mbeans-descriptors PUBLIC
+   "-//Apache Software Foundation//DTD Model MBeans Configuration File"
+   "http://jakarta.apache.org/commons/dtds/mbeans-descriptors.dtd">
 <mbeans-descriptors>
-
-  <mbean name="ContextEnvironment"
-         className="org.apache.catalina.mbeans.ContextEnvironmentMBean"
-         description="Representation of an application environment entry"
-         domain="Catalina"
-         group="Resources"
-         type="org.apache.catalina.deploy.ContextEnvironment">
-    
-    <attribute name="className"
-               description="Fully qualified class name of the managed object"
-               type="java.lang.String"
-               writeable="false"/>
-      
-    <attribute name="description"
-               description="The description of this environment entry"
-               type="java.lang.String"/>
-
-    <attribute name="name"
-               description="The name of this environment entry"
-               type="java.lang.String"/>
-      
-    <attribute name="override"
-               description="Does this environment entry allow overrides by the
-               application deployment descriptor"
-               type="boolean"/>
-
-    <attribute name="type"
-               description="The type of this environment entry"
-               type="java.lang.String"/>
-
-    <attribute name="value"
-               description="The value of this environment entry"
-               type="java.lang.String"/>
+  <mbean
+    name="SimpleTcpCluster"
+    description="Tcp Cluster implementation"
+    domain="Catalina"
+    group="Cluster"
+    type="org.apache.catalina.ha.tcp.SimpleTcpCluster">
+    <attribute
+      name="channelSendOptions"
+      description="This sets channel behaviour on sent messages."
+      type="int"/>
+    <attribute
+      name="channelStartOptions"
+      description="This sets channel start behaviour."
+      type="java.lang.String"/>
+    <attribute
+      name="clusterName"
+      description="name of cluster"
+      type="java.lang.String"/>
+    <attribute
+      name="heartbeatBackgroundEnabled"
+      description="enable that container background thread call channel heartbeat, default is that channel mangage heartbeat itself."
+      is="true"
+      type="boolean"/>
+    <attribute
+      name="info"
+      description="Class version info"
+      type="java.lang.String"
+      writeable="false"/>
+    <attribute
+      name="notifyLifecycleListenerOnFailure"
+      description="notify lifecycleListener from message transfer failure"
+      is="true"
+      type="boolean"/>
+    <attribute
+      name="stateName"
+      description="The name of the LifecycleState that this component is currently in"
+      type="java.lang.String"
+      writeable="false"/>
+    <operation
+      name="setProperty"
+      description="set a property to all cluster managers (with prefix 'manager.')"
+      impact="ACTION"
+      returnType="void">
+      <parameter
+        name="key"
+        description="Property name"
+        type="java.lang.String"/>
+      <parameter
+        name="value"
+        description="Property value"
+        type="java.lang.String"/>
+    </operation>
+    <operation
+      name="send"
+      description="send message to all cluster members"
+      impact="ACTION"
+      returnType="void">
+      <parameter
+        name="message"
+        description="replication message"
+        type="org.apache.catalina.ha.ClusterMessage"/>
+    </operation>
+    <operation
+      name="start"
+      description="Start the cluster"
+      impact="ACTION"
+      returnType="void"/>
+    <operation
+      name="stop"
+      description="Stop the cluster"
+      impact="ACTION"
+      returnType="void"/>
   </mbean>
-
-
-  <mbean         name="ContextResource"
-         className="org.apache.catalina.mbeans.ContextResourceMBean"
-         description="Representation of a resource reference for a web application"
-         domain="Catalina"
-         group="Resources"
-         type="org.apache.catalina.deploy.ContextResource">
-    
-    <attribute   name="auth"
-               description="The authorization requirement for this resource"
-               type="java.lang.String"/>
-      
-    <attribute   name="description"
-               description="The description of this resource"
-               type="java.lang.String"/>
-      
-    <attribute   name="name"
-               description="The name of this resource"
-               type="java.lang.String"/>
-      
-    <attribute   name="scope"
-               description="The sharing scope of this resource factory"
-               type="java.lang.String"/>
-      
-    <attribute   name="type"
-               description="The type of this environment entry"
-               type="java.lang.String"/>
+  <mbean
+    name="ReplicationValve"
+    description="Valve for simple tcp replication"
+    domain="Catalina"
+    group="Valve"
+    type="org.apache.catalina.ha.tcp.ReplicationValve">
+    <attribute
+      name="asyncSupported"
+      description="Does this valve support async reporting?"
+      is="true"
+      type="boolean"/>
+    <attribute
+      name="doProcessingStats"
+      getMethod="doStatistics"
+      setMethod="setStatistics"
+      description="active statistics counting"
+      type="boolean"/>
+    <attribute
+      name="filter"
+      description="resource filter to disable session replication check"
+      type="java.lang.String"/>
+    <attribute
+      name="info"
+      description="Class version info"
+      type="java.lang.String"
+      writeable="false"/>
+    <attribute
+      name="lastSendTime"
+      description="last replicated request time"
+      type="long"
+      writeable="false"/>
+    <attribute
+      name="nrOfCrossContextSendRequests"
+      description="number of send cross context session requests"
+      type="long"
+      writeable="false"/>
+    <attribute
+      name="nrOfFilterRequests"
+      description="number of filtered requests"
+      type="long"
+      writeable="false"/>
+    <attribute
+      name="nrOfSendRequests"
+      description="number of send requests"
+      type="long"
+      writeable="false"/>
+    <attribute
+      name="nrOfRequests"
+      description="number of replicated requests"
+      type="long"
+      writeable="false"/>
+    <attribute
+      name="primaryIndicator"
+      is="true"
+      description="set indicator that request processing is at primary session node"
+      type="boolean"/>
+    <attribute
+      name="primaryIndicatorName"
+      description="Request attribute name to indicate that request processing is at primary session node"
+      type="java.lang.String"/>
+    <attribute
+      name="stateName"
+      description="The name of the LifecycleState that this component is currently in"
+      type="java.lang.String"
+      writeable="false"/>
+    <attribute
+      name="totalSendTime"
+      description="total replicated send time"
+      type="long"
+      writeable="false"/>
+    <attribute
+      name="totalRequestTime"
+      description="total replicated request time"
+      type="long"
+      writeable="false"/>
+    <operation
+      name="resetStatistics"
+      description="Reset all statistics"
+      impact="ACTION"
+      returnType="void"/>
   </mbean>
-  
-  
-   <mbean         name="ContextResourceLink"
-          className="org.apache.catalina.mbeans.ContextResourceLinkMBean"
-          description="Representation of a resource link for a web application"
-          domain="Catalina"
-          group="Resources"
-          type="org.apache.catalina.deploy.ContextResourceLink">
-    
-    <attribute   name="global"
-               description="The global name of this resource"
-               type="java.lang.String"/>
-      
-    <attribute   name="name"
-               description="The name of this resource"
-               type="java.lang.String"/>
-               
-    <attribute   name="description"
-               description="The description of this resource"
-               type="java.lang.String"/>
-      
-    <attribute   name="type"
-               description="The type of this resource"
-               type="java.lang.String"/>
-      
-  </mbean>
-  
-  <mbean         name="NamingResources"
-            className="org.apache.catalina.mbeans.NamingResourcesMBean"
-          description="Holds and manages the naming resources defined in the
-                       J2EE Enterprise Naming Context and their associated 
-                       JNDI context"
-               domain="Catalina"
-                group="Resources"
-                 type="org.apache.catalina.deploy.NamingResources">
-                 
-    <attribute   name="container"
-          description="The container with which the naming resources are associated."
-                 type="java.lang.Object"
-            writeable="false"/>
-
-    <attribute   name="environments"
-          description="MBean Names of the set of defined environment entries
-                       for this web application"
-                 type="[Ljava.lang.String;"
-            writeable="false"/>
-
-    <attribute   name="resources"
-          description="MBean Names of all the defined resource references
-                       for this application."
-                 type="[Ljava.lang.String;"
-            writeable="false"/>
-
-    <attribute   name="resourceLinks"
-          description="MBean Names of all the defined resource link references
-                       for this application."
-                 type="[Ljava.lang.String;"
-            writeable="false"/>
-
-    <operation   name="addEnvironment"
-          description="Add an environment entry for this web application"
-               impact="ACTION"
-           returnType="void">
-      <parameter name="envName"
-          description="New environment entry name"
-                 type="java.lang.String"/>
-      <parameter name="type"
-          description="New environment entry type"
-                 type="java.lang.String"/>
-      <parameter name="value"
-          description="New environment entry value"
-                 type="java.lang.String"/>
-    </operation>
-
-    <operation   name="addResource"
-          description="Add a resource reference for this web application"
-               impact="ACTION"
-           returnType="void">
-      <parameter name="resourceName"
-          description="New resource reference name"
-                 type="java.lang.String"/>
-      <parameter name="type"
-          description="New resource reference type"
-                 type="java.lang.String"/>
-    </operation>
-
-    <operation   name="addResourceLink"
-          description="Add a resource link reference for this web application"
-               impact="ACTION"
-           returnType="void">
-      <parameter name="resourceLinkName"
-          description="New resource reference name"
-                 type="java.lang.String"/>
-      <parameter name="type"
-          description="New resource reference type"
-                 type="java.lang.String"/>
-    </operation>
-
-    <operation   name="removeEnvironment"
-          description="Remove any environment entry with the specified name"
-               impact="ACTION"
-           returnType="void">
-      <parameter name="envName"
-          description="Name of the environment entry to remove"
-                 type="java.lang.String"/>
-    </operation>
-
-    <operation   name="removeResource"
-          description="Remove any resource reference with the specified name"
-               impact="ACTION"
-           returnType="void">
-      <parameter name="resourceName"
-          description="Name of the resource reference to remove"
-                 type="java.lang.String"/>
-    </operation>
-
-    <operation   name="removeResourceLink"
-          description="Remove any resource link reference with the specified name"
-               impact="ACTION"
-           returnType="void">
-      <parameter name="resourceLinkName"
-          description="Name of the resource reference to remove"
-                 type="java.lang.String"/>
-    </operation>
-
-  </mbean>
-
-
 </mbeans-descriptors>
